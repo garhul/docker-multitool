@@ -1,0 +1,5 @@
+#!/bin/bash
+
+$PATH=$1
+echo "### runing terraform fmt on $PATH ###"
+terraform fmt -check=true $PATH 
