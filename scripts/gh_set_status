@@ -1,0 +1,24 @@
+#!/bin/bash
+
+GITHUB_STATUS_ENDPOINT="https://api.github.com"/repos/$DRONE_REPO/statuses/$CI_COMMIT
+PENDING_DESCRIPTION="Drone build #${CI_JOB_NUMBER} in progress"
+SUCCESS_DESCRIPTION="Drone build ${CI_JOB_NUMBER} successful"
+FAILURE_DESCRIPTION="Drone build ${CI_JOB_NUMBER} failed"
+CONTEXT='ci/drone'
+STATE=$1
+
+contains() {
+    [[ $1 =~ (^|[[:space:]])$2($|[[:space:]]) ]] && exit(0) || exit(1)
+}
+
+if contains "failure success pending error" $STATE; then
+  echo "Invalid STATE '$STATE', must be one of [failure, success, pending, error]"
+  exit 1
+fi
+
+[[ "failure" = "$STATE" ]] && DESCRIPTION=${FAILURE_DESCRIPTION}
+[[ "pending" = "$STATE" ]] && DESCRIPTION=${PENDING_DESCRIPTION}
+[[ "success" = "$STATE" ]] && DESCRIPTION=${SUCCESS_DESCRIPTION} 
+
+curl -v -k -f -H "Authorization: token $AUTH_TOKEN" --request POST \
+--data "{\"state\": \"$STATE\", \"description\": \"$DESCRIPTION\", \"target_url\": \"$CI_BUILD_URL\", \"context\": \"$CONTEXT\"}" $GITHUB_STATUS_ENDPOINT > /dev/null
