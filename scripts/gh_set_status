@@ -2,8 +2,8 @@
 
 GITHUB_STATUS_ENDPOINT="https://api.github.com"/repos/$DRONE_REPO/statuses/$CI_COMMIT
 PENDING_DESCRIPTION="Drone build #${CI_JOB_NUMBER} in progress"
-SUCCESS_DESCRIPTION="Drone build ${CI_JOB_NUMBER} successful"
-FAILURE_DESCRIPTION="Drone build ${CI_JOB_NUMBER} failed"
+SUCCESS_DESCRIPTION="Drone build #${CI_JOB_NUMBER} successful"
+FAILURE_DESCRIPTION="Drone build #${CI_JOB_NUMBER} failed"
 CONTEXT='ci/drone'
 STATE=$1
 

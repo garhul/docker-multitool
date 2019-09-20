@@ -1,0 +1,6 @@
+#!/bin/bash
+
+TERRAFORM_VERSION=$1
+echo "### Using terraform version $1 ###"
+wget -O terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+unzip terraform.zip -d /tmp && rm -f terraform.zip && mv /tmp/terraform /usr/local/bin/terraform
