@@ -20,5 +20,5 @@ fi
 [[ "pending" = "$STATE" ]] && DESCRIPTION=${PENDING_DESCRIPTION}
 [[ "success" = "$STATE" ]] && DESCRIPTION=${SUCCESS_DESCRIPTION} 
 
-curl -v -k -f -H "Authorization: token $AUTH_TOKEN" --request POST \
+curl -v -k -f -H "Authorization: token $GITHUB_TOKEN" --request POST \
 --data "{\"state\": \"$STATE\", \"description\": \"$DESCRIPTION\", \"target_url\": \"$CI_BUILD_URL\", \"context\": \"$CONTEXT\"}" $GITHUB_STATUS_ENDPOINT > /dev/null
