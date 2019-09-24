@@ -1,5 +1,5 @@
 #!/bin/bash
 set -eux
-PATH=$1
-echo "### runing terraform fmt on $PATH ###"
-terraform fmt -check=true $PATH 
+TF_PATH=$1
+echo "### runing terraform fmt on $TF_PATH ###"
+terraform fmt -check=true $TF_PATH 
