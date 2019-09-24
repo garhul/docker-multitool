@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eux
+
 wrap() {
   if [[ $(echo "$1" | wc -l) -gt 20 ]]; then
     echo "
